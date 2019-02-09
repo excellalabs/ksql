@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'minimal_pipeline'
-require './pipeline/tasks/shared/vars'
+require './pipeline/tasks/shared/helper'
 
 # Load any .rake files under the current directory
 Dir.glob('pipeline/tasks/*.rake').each do |task_file|
