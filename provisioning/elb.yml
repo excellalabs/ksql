@@ -32,7 +32,7 @@ Resources:
     Properties:
       DefaultActions:
       - Type: forward
-        TargetGroupArn: !Ref 'LoadBalancerTargetGroup'
+        TargetGroupArn: !Ref 'KsqlTargetGroup'
       LoadBalancerArn: !Ref 'LoadBalancer'
       Port: 443
       Protocol: HTTPS
@@ -44,7 +44,7 @@ Resources:
     Properties:
       Actions:
       - Type: forward
-        TargetGroupArn: !Ref 'LoadBalancerTargetGroup'
+        TargetGroupArn: !Ref 'KsqlTargetGroup'
       Conditions:
       - Field: path-pattern
         Values: [/]
@@ -59,7 +59,7 @@ Resources:
       HealthCheckProtocol: HTTP
       HealthCheckTimeoutSeconds: 10
       HealthyThresholdCount: 2
-      Name: LoadBalancerTargetGroup
+      # Name: LoadBalancerTargetGroup
       Port: !Ref 'Port'
       Protocol: HTTP
       UnhealthyThresholdCount: 10
@@ -70,4 +70,4 @@ Outputs:
     Description: Your ALB DNS URL
     Value: !Join ['', [!GetAtt [LoadBalancer, DNSName]]]
   TargetGroup:
-    Value: !Ref LoadBalancerTargetGroup
+    Value: !Ref KsqlTargetGroup
