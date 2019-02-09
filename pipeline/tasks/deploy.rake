@@ -1,5 +1,5 @@
 # rubocop:disable Metrics/BlockLength
-desc 'Deploy Schema Registry ELB'
+desc 'Deploy KSQL ELB'
 task :'deploy:elb' do
   puts 'deploy elb cloudformation template'
   stack_name = 'KSQL-ELB'
@@ -31,7 +31,7 @@ task :'deploy:ecs' do
   private_subnets = get_subnets('private')
   private_sg = @keystore.retrieve('PRIVATE_SECURITY_GROUP')
   target_group = \
-    @cloudformation.stack_output('SCHEMA-REGISTRY-ELB', 'TargetGroup')
+    @cloudformation.stack_output('KSQL-ELB', 'TargetGroup')
   kafka_url = @keystore.retrieve('KAFKA_BOOTSTRAP_SERVERS')
   image_name = 'confluentinc/cp-ksql-server:5.1.0'
   ecs_cluster = 'EX-INTERNAL-ECS-CLUSTER'
