@@ -85,8 +85,8 @@ Resources:
               Value: !Join [':', ['http://0.0.0.0', !Ref Port]]
             - Name: KSQL_KSQL_SERVICE_ID
               Value: ksql_1_
-            # - Name: KSQL_KSQL_SCHEMA_REGISTRY_URL
-            #   Value:
+            - Name: KSQL_KSQL_SCHEMA_REGISTRY_URL
+              Value: 'http://10.100.2.106:8081'
             # - Name: KSQL_KSQL_QUERIES_FILE
             #   Value:
           # Send logs to CloudWatch Logs
