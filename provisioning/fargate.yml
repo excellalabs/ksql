@@ -102,7 +102,7 @@ Resources:
               Value: !Ref SchemaRegistryUrl
             - Name: KSQL_OPTS
               Value: -javaagent:/ksql/jmx_prometheus_javaagent.jar=7071:/ksql/config.yml
-            Name: JMX_PORT
+            - Name: JMX_PORT
               Value: 6002
             # - Name: KSQL_KSQL_QUERIES_FILE
             #   Value:
