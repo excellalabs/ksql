@@ -1,8 +1,9 @@
 @cloudformation = MinimalPipeline::Cloudformation.new
 @keystore = MinimalPipeline::Keystore.new
 
-ENV['AWS_REGION'] = 'us-east-1'
 @port = '8088'
+docker_repo = @keystore.retrieve('ECR_REPOSITORY')
+@docker_image = "#{docker_repo}/ksql-server:latest"
 
 def get_subnets(subnet_cluster)
   subnet_cluster.upcase!
