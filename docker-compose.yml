@@ -1,6 +1,6 @@
 version: '2'
 services:
-  connect:
+  ksql:
     build:
       context: container
     name: ksql-server
@@ -9,12 +9,12 @@ services:
      - 8088:8088
      - 6002:6002
     environment:
-      KSQL_CONFIG_DIR: "/etc/ksql"
-      KSQL_LOG4J_OPTS: "-Dlog4j.configuration=file:/etc/ksql/log4j-rolling.properties"
+      KSQL_CONFIG_DIR: /etc/ksql
+      KSQL_LOG4J_OPTS: -Dlog4j.configuration=file:/etc/ksql/log4j-rolling.properties
       KSQL_BOOTSTRAP_SERVERS: "broker:9092"
       KSQL_HOST_NAME: ksql-server
-      KSQL_APPLICATION_ID: "cp-all-in-one"
-      KSQL_LISTENERS: "http://0.0.0.0:8088"
+      KSQL_APPLICATION_ID: ksql_1_
+      KSQL_LISTENERS: http://0.0.0.0:8088
       KSQL_CACHE_MAX_BYTES_BUFFERING: 0
       KSQL_OPTS: -javaagent:/ksql/jmx_prometheus_javaagent.jar=7071:/ksql/config.yml
       JMX_PORT: 6002
