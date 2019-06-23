@@ -25,7 +25,7 @@ end
 desc 'Deploy KSQL Server ECS'
 task :'deploy:ecs' do
   puts 'deploy ecs cloudformation template'
-  stack_name = 'KSQL-ECS'
+  stack_name = 'XSP-KSQL-ECS'
   service_name = 'ksql-server'
   private_subnets = get_subnets('private')
   private_sg = @keystore.retrieve('PRIVATE_SECURITY_GROUP')
