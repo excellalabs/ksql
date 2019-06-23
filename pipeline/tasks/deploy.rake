@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/BlockLength
 desc 'Deploy KSQL ELB'
 task :'deploy:elb' do
   puts 'deploy elb cloudformation template'
@@ -33,7 +32,7 @@ task :'deploy:ecs' do
   # target_group = \
   #   @cloudformation.stack_output('KSQL-ELB', 'TargetGroup')
   kafka_url = @keystore.retrieve('KAFKA_BOOTSTRAP_SERVERS')
-  ecs_cluster = 'EX-INTERNAL-ECS-CLUSTER'
+  ecs_cluster = @keystore.retrieve('INTERNAL_ECS_CLUSTER')
 
   parameters = {
     'Cluster' => ecs_cluster,
@@ -55,4 +54,3 @@ task :'deploy:ecs' do
   )
   puts 'done!'
 end
-# rubocop:enable Metrics/BlockLength
