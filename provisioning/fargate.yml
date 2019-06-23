@@ -92,8 +92,8 @@ Resources:
           Environment:
             - Name: KSQL_BOOTSTRAP_SERVERS
               Value: !Ref KafkaUrl
-            - Name: KSQL_HOST_NAME
-              Value: 'ksql-server'
+            # - Name: KSQL_HOST_NAME
+            #   Value: 'ksql-server'
             - Name: KSQL_LISTENERS
               Value: !Join [':', ['http://0.0.0.0', !Ref Port]]
             - Name: KSQL_KSQL_SERVICE_ID
