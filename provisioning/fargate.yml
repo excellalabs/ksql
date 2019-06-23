@@ -48,10 +48,10 @@ Parameters:
     Description: Memory utilization
     Type: String
     Default: 0.5GB
-  SchemaRegistryUrl:
-    Description: Schema registry url
-    Type: String
-    Default: http://10.100.2.106:8081
+  # SchemaRegistryUrl:
+  #   Description: Schema registry url
+  #   Type: String
+  #   Default: http://10.100.2.106:8081
 
 Resources:
   TaskDefinition:
@@ -98,8 +98,8 @@ Resources:
               Value: !Join [':', ['http://0.0.0.0', !Ref Port]]
             - Name: KSQL_KSQL_SERVICE_ID
               Value: ksql_1_
-            - Name: KSQL_KSQL_SCHEMA_REGISTRY_URL
-              Value: !Ref SchemaRegistryUrl
+            # - Name: KSQL_KSQL_SCHEMA_REGISTRY_URL
+            #   Value: !Ref SchemaRegistryUrl
             - Name: KSQL_OPTS
               Value: -javaagent:/ksql/jmx_prometheus_javaagent.jar=7071:/ksql/config.yml
             - Name: JMX_PORT
