@@ -100,10 +100,11 @@ Resources:
               Value: ksql_1_
             # - Name: KSQL_KSQL_SCHEMA_REGISTRY_URL
             #   Value: !Ref SchemaRegistryUrl
-            - Name: KSQL_OPTS
-              Value: -javaagent:/ksql/jmx_prometheus_javaagent.jar=7071:/ksql/config.yml
-            - Name: JMX_PORT
-              Value: 6002
+            # disable jmx for debugging
+            # - Name: KSQL_OPTS
+            #   Value: -javaagent:/ksql/jmx_prometheus_javaagent.jar=7071:/ksql/config.yml
+            # - Name: JMX_PORT
+            #   Value: 6002
             # - Name: KSQL_KSQL_QUERIES_FILE
             #   Value:
           # Send logs to CloudWatch Logs
