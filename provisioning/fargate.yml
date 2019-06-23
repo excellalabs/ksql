@@ -9,9 +9,9 @@ Parameters:
   EcsSecurityGroup:
     Description: Private security group for ECS cluster
     Type: AWS::EC2::SecurityGroup::Id
-  TargetGroup:
-    Description: ELB target group Arn
-    Type: String
+  # TargetGroup:
+  #   Description: ELB target group Arn
+  #   Type: String
   Image:
     Type: String
     Description: Docker image
@@ -161,7 +161,8 @@ Resources:
         MaximumPercent: 200
       DesiredCount: 1
       # This may need to be adjusted if the container takes a while to start up
-      HealthCheckGracePeriodSeconds: 30
+      # only valid when there is a loadbalancer
+      # HealthCheckGracePeriodSeconds: 30
       LaunchType: FARGATE
       NetworkConfiguration: 
         AwsvpcConfiguration:
@@ -170,10 +171,10 @@ Resources:
           Subnets: !Ref PrivateSubnetIds
           SecurityGroups:
             - !Ref EcsSecurityGroup
-      LoadBalancers:
-        - ContainerName: !Ref ServiceName
-          ContainerPort: !Ref Port
-          TargetGroupArn: !Ref TargetGroup
+      # LoadBalancers:
+      #   - ContainerName: !Ref ServiceName
+      #     ContainerPort: !Ref Port
+      #     TargetGroupArn: !Ref TargetGroup
   LogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
@@ -202,5 +203,5 @@ Resources:
         # Keep things at or lower than 50% CPU utilization, for example
         TargetValue: !Ref AutoScalingTargetValue
 Outputs:
-  ecsservice:
+  KsqlServer:
     Value: !Ref 'Service'

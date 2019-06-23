@@ -30,8 +30,8 @@ task :'deploy:ecs' do
   service_name = 'ksql-server'
   private_subnets = get_subnets('private')
   private_sg = @keystore.retrieve('PRIVATE_SECURITY_GROUP')
-  target_group = \
-    @cloudformation.stack_output('KSQL-ELB', 'TargetGroup')
+  # target_group = \
+  #   @cloudformation.stack_output('KSQL-ELB', 'TargetGroup')
   kafka_url = @keystore.retrieve('KAFKA_BOOTSTRAP_SERVERS')
   ecs_cluster = 'EX-INTERNAL-ECS-CLUSTER'
 
@@ -41,7 +41,7 @@ task :'deploy:ecs' do
     'VPC' => @keystore.retrieve('VPC_ID'),
     'PrivateSubnetIds' => private_subnets,
     'EcsSecurityGroup' => private_sg,
-    'TargetGroup' => target_group,
+    # 'TargetGroup' => target_group,
     'Image' => @docker_image,
     'Port' => @port,
     'KafkaUrl' => kafka_url

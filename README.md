@@ -116,3 +116,24 @@ CREATE TABLE POSSIBLE_FRAUD AS \
     GROUP BY name, credit_card \
     HAVING count(*) >= 3;
 ```
+Example with flatten JSON events from source and let's use timestamp from the source:
+```sql
+CREATE STREAM KSQL_CDC_TRANSACTIONS (id VARCHAR, name VARCHAR, credit_card VARCHAR, amount DOUBLE, city VARCHAR, STATE VARCHAR, zip_code VARCHAR, created_at BIGINT) \
+WITH (KAFKA_TOPIC='db.public.transactions',VALUE_FORMAT='JSON',TIMESTAMP='created_at');
+```
+<span style="color:darkred">IMPORTANT</span>
+If you use the WITH(timestamp=...) clause, this timestamp must be expressible as a Unix epoch time in milliseconds, which is the number of milliseconds that have elapsed since 1 January 1970 at midnight UTC/GMT. Check [here](https://docs.confluent.io/current/ksql/docs/concepts/time-and-windows-in-ksql-queries.html#timestamp-assignment) for more information.
+```sql
+CREATE STRAEM KSQL_TRANSACTIONS AS \
+  SELECT id, name, credit_card, amount, city, state, zip_code, created_at \
+  FROM KSQL_CDC_TRANSACTIONS \
+PARTITION BY id
+```
+```sql
+CREATE TABLE POSSIBLE_FRAUD AS \
+  SELECT name, credit_card, SUM(amount) AS total_amount, count(*) AS transaction_count \
+  FROM KSQL_TRANSACTIONS \
+  WINDOW TUMBLING (SIZE 5 SECONDS) \
+  GROUP BY name, credit_card \
+  HAVING count(*) >= 3;
+```
